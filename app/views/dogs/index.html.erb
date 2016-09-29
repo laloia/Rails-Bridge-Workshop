@@ -1,0 +1,42 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Dogs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Age</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  
+  <p>Sort:
+  <%= link_to "by name", dogs_path(sort_by: :name) %>
+  <%= link_to "by age", dogs_path(sort_by: :normalized_age) %>
+</p>
+<p>Filter:
+  <%= link_to "dogs under 5yo", dogs_path(babies: :true) %>
+  <%= link_to "dogs with pictures", dogs_path(pictures: :true) %>
+</p>
+  
+  
+  
+    <% @dogs.each do |dog| %>
+      <tr>
+        <td><%=image_tag(dog.picture_url(:thumb)) unless dog.picture_url(:thumb).blank? %></td>
+        <td><b><%= dog.name %></b></td>
+        <td><%= dog.age %></td>
+        <td><%= link_to 'Show', dog %></td>
+        <td><%= link_to 'Edit', edit_dog_path(dog) %></td>
+        <td><%= link_to 'Destroy', dog, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Dog', new_dog_path %>
